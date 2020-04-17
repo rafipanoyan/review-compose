@@ -41,15 +41,16 @@ android {
 }
 
 dependencies {
+    val uiVersion = "0.1.0-dev09"
 
     implementation(kotlin("stdlib", org.jetbrains.kotlin.config.KotlinCompilerVersion.VERSION))
     implementation("androidx.core:core-ktx:1.2.0")
     implementation("androidx.appcompat:appcompat:1.1.0")
     implementation("com.google.android.material:material:1.1.0")
-    implementation("androidx.ui:ui-framework:0.1.0-dev03")
-    implementation("androidx.ui:ui-layout:0.1.0-dev03")
-    implementation("androidx.ui:ui-material:0.1.0-dev03")
-    implementation("androidx.ui:ui-tooling:0.1.0-dev03")
+    implementation("androidx.ui:ui-framework:$uiVersion")
+    implementation("androidx.ui:ui-layout:$uiVersion")
+    implementation("androidx.ui:ui-material:$uiVersion")
+    implementation("androidx.ui:ui-tooling:$uiVersion")
     testImplementation("junit:junit:4.13")
     androidTestImplementation("androidx.test.ext:junit:1.1.1")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.2.0")
