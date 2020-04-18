@@ -1,6 +1,9 @@
+import org.jetbrains.kotlin.kapt3.base.Kapt
+
 plugins {
     id("java-library")
     kotlin("jvm")
+    kotlin("kapt")
 }
 
 java {
@@ -9,5 +12,11 @@ java {
 }
 
 dependencies {
+    val roomVersion = "2.2.5"
+
     implementation(kotlin("stdlib"))
+
+    implementation("androidx.room:room-runtime:$roomVersion")
+    implementation("androidx.room:room-ktx:$roomVersion")
+    kapt("androidx.room:room-compiler:$roomVersion")
 }
