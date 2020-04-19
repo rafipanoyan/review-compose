@@ -1,20 +1,24 @@
-import org.jetbrains.kotlin.kapt3.base.Kapt
-
 plugins {
-    id("java-library")
-    kotlin("jvm")
+    id("com.android.library")
+    kotlin("android")
     kotlin("kapt")
 }
 
-java {
-    sourceCompatibility = JavaVersion.VERSION_1_8
-    targetCompatibility = JavaVersion.VERSION_1_8
+android {
+
+    compileSdkVersion(29)
+
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
+    }
 }
 
 dependencies {
     val roomVersion = "2.2.5"
 
     implementation(kotlin("stdlib"))
+    implementation(project(":domain"))
 
     implementation("androidx.room:room-runtime:$roomVersion")
     implementation("androidx.room:room-ktx:$roomVersion")

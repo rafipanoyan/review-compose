@@ -48,6 +48,12 @@ dependencies {
     val composeVersion = "0.1.0-dev09"
 
     implementation(kotlin("stdlib", org.jetbrains.kotlin.config.KotlinCompilerVersion.VERSION))
+
+    implementation(project(":domain"))
+    implementation(project(":data"))
+
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.5")
+
     implementation("androidx.core:core-ktx:1.2.0")
     implementation("androidx.appcompat:appcompat:1.1.0")
     implementation("com.google.android.material:material:1.1.0")
