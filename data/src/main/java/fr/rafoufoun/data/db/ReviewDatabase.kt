@@ -32,8 +32,8 @@ abstract class ReviewDatabase : RoomDatabase() {
                 .addCallback(object : RoomDatabase.Callback() {
                     override fun onCreate(db: SupportSQLiteDatabase) {
                         db.execSQL("INSERT INTO review VALUES('test FROM DB')")
-                        db.execSQL("INSERT INTO section VALUES('test', 'story', 4)")
-                        db.execSQL("INSERT INTO section VALUES('test', 'character', 3)")
+                        db.execSQL("INSERT INTO section VALUES('test', 'story', 4, 5)")
+                        db.execSQL("INSERT INTO section VALUES('test', 'character', 3, 5)")
                     }
                 })
                 .build()

@@ -12,8 +12,9 @@ fun review(
 
 fun section(
     label: String = "test_section",
-    mark: Int = 2
+    mark: Int = 2,
+    outOf: Int = 5
 ) = Section(
     SectionLabel(label),
-    Mark(mark)
+    Mark(mark, outOf)
 )

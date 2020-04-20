@@ -4,7 +4,7 @@ inline class ReviewName(val value: String)
 
 inline class SectionLabel(val value: String)
 
-inline class Mark(val value: Int)
+data class Mark(val value: Int, val outOf: Int)
 
 data class Review(
     val name: ReviewName,

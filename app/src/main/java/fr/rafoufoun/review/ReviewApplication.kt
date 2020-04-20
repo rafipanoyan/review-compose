@@ -19,6 +19,7 @@ class ReviewApplication : Application() {
             INSTANCE = application
         }
 
-        fun get(): ReviewApplication = INSTANCE ?: throw IllegalStateException()
+        fun get(): ReviewApplication =
+            INSTANCE ?: throw IllegalStateException("Should have initialized Application instance")
     }
 }

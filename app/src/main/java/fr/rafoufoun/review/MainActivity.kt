@@ -5,13 +5,13 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.Composable
 import androidx.lifecycle.ViewModelProvider
 import androidx.ui.core.setContent
-import androidx.ui.foundation.Text
-import androidx.ui.layout.Column
 import androidx.ui.livedata.observeAsState
+import androidx.ui.material.CircularProgressIndicator
 import androidx.ui.material.MaterialTheme
 import androidx.ui.tooling.preview.Preview
 import com.example.domain.model.Review
 import com.example.domain.model.ReviewName
+import fr.rafoufoun.review.list.ReviewList
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 @ExperimentalCoroutinesApi
@@ -29,22 +29,18 @@ class MainActivity : AppCompatActivity() {
         setContent {
             val reviews = reviewsVm.reviews.observeAsState()
             MaterialTheme {
-                Greeting(reviews.value)
+                ReviewsContent(reviews.value)
             }
         }
     }
 }
 
 @Composable
-fun Greeting(reviews: List<Review>?) {
+fun ReviewsContent(reviews: List<Review>?) {
     if (reviews.isNullOrEmpty()) {
-        Text(text = "NO VALUE")
+        CircularProgressIndicator()
     } else {
-        Column {
-            reviews.forEach { review ->
-                Text(text = review.name.value)
-            }
-        }
+        ReviewList(reviews = reviews)
     }
 }
 
@@ -52,6 +48,6 @@ fun Greeting(reviews: List<Review>?) {
 @Composable
 fun DefaultPreview() {
     MaterialTheme {
-        Greeting(listOf(Review(ReviewName("test preview"), listOf())))
+        ReviewsContent(listOf(Review(ReviewName("test preview"), listOf())))
     }
 }

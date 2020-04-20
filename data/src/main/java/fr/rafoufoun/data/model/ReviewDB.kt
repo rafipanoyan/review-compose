@@ -15,7 +15,8 @@ data class SectionDB(
     @ForeignKey(entity = ReviewDB::class, parentColumns = ["name"], childColumns = ["reviewName"])
     val reviewName: String,
     val label: String,
-    val mark: Int
+    val mark: Int,
+    val outOf: Int
 )
 
 data class ReviewAndSections(

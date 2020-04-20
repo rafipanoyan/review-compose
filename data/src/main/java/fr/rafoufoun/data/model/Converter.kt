@@ -11,5 +11,5 @@ fun ReviewAndSections.toReview(): Review =
 fun SectionDB.toSection(): Section =
     Section(
         SectionLabel(label),
-        Mark(mark)
+        Mark(mark, outOf)
     )
