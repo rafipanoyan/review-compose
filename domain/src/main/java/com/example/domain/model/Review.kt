@@ -1,8 +1,8 @@
 package com.example.domain.model
 
-inline class ReviewName(val name: String)
+inline class ReviewName(val value: String)
 
-inline class SectionLabel(val label: String)
+inline class SectionLabel(val value: String)
 
 inline class Mark(val value: Int)
 

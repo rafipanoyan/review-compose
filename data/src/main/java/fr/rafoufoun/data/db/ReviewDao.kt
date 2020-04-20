@@ -11,7 +11,7 @@ interface ReviewDao {
 
     @Transaction
     @Query("SELECT * FROM review")
-    suspend fun getReviewsWithSections(): Flow<List<ReviewAndSections>>
+    fun getReviewsWithSections(): Flow<List<ReviewAndSections>>
 
     @Insert
     suspend fun insertReviewWithSections(review: ReviewDB, sections: List<SectionDB>)

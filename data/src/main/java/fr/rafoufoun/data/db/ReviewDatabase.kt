@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.sqlite.db.SupportSQLiteDatabase
 import fr.rafoufoun.data.model.ReviewDB
 import fr.rafoufoun.data.model.SectionDB
 
@@ -12,7 +13,7 @@ abstract class ReviewDatabase : RoomDatabase() {
 
     abstract fun reviewDao(): ReviewDao
 
-    suspend fun getReviews() = reviewDao().getReviewsWithSections()
+    fun getReviews() = reviewDao().getReviewsWithSections()
 
     suspend fun insertReviewWithSections(review: ReviewDB, sections: List<SectionDB>) =
         reviewDao().insertReviewWithSections(review, sections)
@@ -28,6 +29,13 @@ abstract class ReviewDatabase : RoomDatabase() {
 
         fun getInstance(ctx: Context): ReviewDatabase =
             INSTANCE ?: Room.databaseBuilder(ctx, ReviewDatabase::class.java, "review.db")
+                .addCallback(object : RoomDatabase.Callback() {
+                    override fun onCreate(db: SupportSQLiteDatabase) {
+                        db.execSQL("INSERT INTO review VALUES('test FROM DB')")
+                        db.execSQL("INSERT INTO section VALUES('test', 'story', 4)")
+                        db.execSQL("INSERT INTO section VALUES('test', 'character', 3)")
+                    }
+                })
                 .build()
                 .also { INSTANCE = it }
     }

@@ -9,7 +9,7 @@ data class ReviewDB(
 
 @Entity(
     tableName = "section",
-    primaryKeys = ["reviewId", "label"]
+    primaryKeys = ["reviewName", "label"]
 )
 data class SectionDB(
     @ForeignKey(entity = ReviewDB::class, parentColumns = ["name"], childColumns = ["reviewName"])
@@ -22,7 +22,7 @@ data class ReviewAndSections(
     @Embedded val review: ReviewDB,
     @Relation(
         parentColumn = "name",
-        entityColumn = "reviewId"
+        entityColumn = "reviewName"
     )
     val sections: List<SectionDB>
 )

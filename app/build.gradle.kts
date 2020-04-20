@@ -46,6 +46,8 @@ android {
 dependencies {
     val uiVersion = "0.1.0-dev09"
     val composeVersion = "0.1.0-dev09"
+    val lifecycleVersion = "2.2.0"
+
 
     implementation(kotlin("stdlib", org.jetbrains.kotlin.config.KotlinCompilerVersion.VERSION))
 
@@ -58,10 +60,17 @@ dependencies {
     implementation("androidx.appcompat:appcompat:1.1.0")
     implementation("com.google.android.material:material:1.1.0")
 
+    // ViewModel
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVersion")
+    // LiveData
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:$lifecycleVersion")
+
+
     implementation("androidx.ui:ui-framework:$uiVersion")
     implementation("androidx.ui:ui-layout:$uiVersion")
     implementation("androidx.ui:ui-material:$uiVersion")
     implementation("androidx.ui:ui-tooling:$uiVersion")
+    implementation("androidx.ui:ui-livedata:$uiVersion")
     implementation("androidx.compose:compose-runtime:$composeVersion")
 
     testImplementation("junit:junit:4.13")
