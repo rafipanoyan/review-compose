@@ -1,4 +1,4 @@
-package fr.rafoufoun.review.list
+package fr.rafoufoun.review.home
 
 import android.widget.Toast
 import androidx.compose.Composable
@@ -18,10 +18,13 @@ import com.example.domain.model.ReviewName
 @Composable
 fun ReviewItem(review: Review) {
     val ctx = ContextAmbient.current
-    Clickable(onClick = {
-        Toast.makeText(ctx, "clicked", Toast.LENGTH_SHORT).show()
-    }) {
-        Surface(modifier = Modifier.ripple() + Modifier.fillMaxWidth()) {
+    Clickable(
+        onClick = {
+            Toast.makeText(ctx, "clicked", Toast.LENGTH_SHORT).show()
+        },
+        modifier = Modifier.ripple()
+    ) {
+        Surface(modifier = Modifier.fillMaxWidth()) {
             Text(
                 text = review.name.value,
                 modifier = Modifier.padding(16.dp) + Modifier.fillMaxWidth()
@@ -33,5 +36,10 @@ fun ReviewItem(review: Review) {
 @Preview
 @Composable
 fun ReviewItemPreview() {
-    ReviewItem(Review(ReviewName("review preview"), emptyList()))
+    ReviewItem(
+        Review(
+            ReviewName("review preview"),
+            emptyList()
+        )
+    )
 }

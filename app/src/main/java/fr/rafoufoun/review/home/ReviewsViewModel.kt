@@ -1,4 +1,4 @@
-package fr.rafoufoun.review
+package fr.rafoufoun.review.home
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
@@ -11,15 +11,15 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.onStart
 
 @ExperimentalCoroutinesApi
-class ReviewsViewModel(getReviews: () -> Flow<List<Review>>) : ViewModel() {
+class ReviewsViewModel(allReviewsSource: () -> Flow<List<Review>>) : ViewModel() {
 
-    val reviews: LiveData<List<Review>> = getReviews()
+    val reviews: LiveData<List<Review>> = allReviewsSource()
         .onStart {
             delay(2000)
         }
         .asLiveData()
 
-    class Factory(private val getReviews: () -> Flow<List<Review>>) :
+    class Factory(private val allReviewsSource: () -> Flow<List<Review>>) :
         ViewModelProvider.Factory {
 
         override fun <T : ViewModel?> create(modelClass: Class<T>): T =
@@ -28,7 +28,7 @@ class ReviewsViewModel(getReviews: () -> Flow<List<Review>>) : ViewModel() {
                     it.isAssignableFrom(ReviewsViewModel::class.java)
                 }
                 ?.let {
-                    ReviewsViewModel(getReviews) as T
+                    ReviewsViewModel(allReviewsSource) as T
                 }
                 ?: throw IllegalArgumentException()
 

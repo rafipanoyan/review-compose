@@ -8,7 +8,7 @@ import fr.rafoufoun.data.model.toReview
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
-fun getReviews(app: Application): Flow<List<Review>> =
+fun getReviewsFromDatabase(app: Application): Flow<List<Review>> =
     ReviewDatabase.getInstance(app).getReviews()
         .map { reviewsWithSections ->
             reviewsWithSections.map(ReviewAndSections::toReview)

@@ -1,7 +1,7 @@
 package fr.rafoufoun.review
 
 import android.app.Application
-import fr.rafoufoun.data.repo.getReviews
+import fr.rafoufoun.review.provider.ReviewSource
 
 class ReviewApplication : Application() {
 
@@ -9,7 +9,7 @@ class ReviewApplication : Application() {
         initialize(this)
     }
 
-    fun getReviewFromDatabase() = getReviews(this)
+    val reviewSource = ReviewSource.get(this)
 
     companion object {
 

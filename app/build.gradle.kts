@@ -47,6 +47,7 @@ dependencies {
     val uiVersion = "0.1.0-dev09"
     val composeVersion = "0.1.0-dev09"
     val lifecycleVersion = "2.2.0"
+    val navVersion = "2.3.0-alpha05"
 
 
     implementation(kotlin("stdlib", org.jetbrains.kotlin.config.KotlinCompilerVersion.VERSION))
@@ -65,6 +66,9 @@ dependencies {
     // LiveData
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:$lifecycleVersion")
 
+    // Navigation
+    implementation("androidx.navigation:navigation-fragment-ktx:$navVersion")
+    implementation("androidx.navigation:navigation-ui-ktx:$navVersion")
 
     implementation("androidx.ui:ui-framework:$uiVersion")
     implementation("androidx.ui:ui-layout:$uiVersion")

@@ -3,16 +3,17 @@ package fr.rafoufoun.review
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.Composable
+import androidx.compose.Providers
+import androidx.compose.ambientOf
 import androidx.lifecycle.ViewModelProvider
 import androidx.ui.core.setContent
-import androidx.ui.livedata.observeAsState
-import androidx.ui.material.CircularProgressIndicator
 import androidx.ui.material.MaterialTheme
 import androidx.ui.tooling.preview.Preview
-import com.example.domain.model.Review
-import com.example.domain.model.ReviewName
-import fr.rafoufoun.review.list.ReviewList
+import fr.rafoufoun.review.home.ReviewsViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+
+@ExperimentalCoroutinesApi
+val ReviewsViewModelAmbient = ambientOf<ReviewsViewModel>()
 
 @ExperimentalCoroutinesApi
 class MainActivity : AppCompatActivity() {
@@ -20,27 +21,25 @@ class MainActivity : AppCompatActivity() {
     private val reviewsVm: ReviewsViewModel by lazy {
         ViewModelProvider(
             this,
-            ReviewsViewModel.Factory(ReviewApplication.get()::getReviewFromDatabase)
+            ReviewsViewModel.Factory(ReviewApplication.get().reviewSource.allReviews)
         )[ReviewsViewModel::class.java]
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            val reviews = reviewsVm.reviews.observeAsState()
-            MaterialTheme {
-                ReviewsContent(reviews.value)
+            Providers(ReviewsViewModelAmbient provides reviewsVm) {
+                MaterialTheme {
+                    ReviewApp()
+                }
             }
         }
     }
-}
 
-@Composable
-fun ReviewsContent(reviews: List<Review>?) {
-    if (reviews.isNullOrEmpty()) {
-        CircularProgressIndicator()
-    } else {
-        ReviewList(reviews = reviews)
+    override fun onBackPressed() {
+        if (!backPress()) {
+            super.onBackPressed()
+        }
     }
 }
 
@@ -48,6 +47,6 @@ fun ReviewsContent(reviews: List<Review>?) {
 @Composable
 fun DefaultPreview() {
     MaterialTheme {
-        ReviewsContent(listOf(Review(ReviewName("test preview"), listOf())))
+        //ReviewApp()
     }
 }
