@@ -1,4 +1,4 @@
-package fr.rafoufoun.review.provider
+package fr.rafoufoun.review.data
 
 import android.app.Application
 import com.example.domain.interactor.getReviews
@@ -18,6 +18,8 @@ class ReviewSource private constructor(private val app: Application) {
         private var INSTANCE: ReviewSource? = null
 
         fun get(app: Application): ReviewSource =
-            INSTANCE ?: ReviewSource(app).also { INSTANCE = it }
+            INSTANCE
+                ?: ReviewSource(app)
+                    .also { INSTANCE = it }
     }
 }

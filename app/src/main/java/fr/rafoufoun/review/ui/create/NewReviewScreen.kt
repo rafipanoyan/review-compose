@@ -1,4 +1,4 @@
-package fr.rafoufoun.review.create
+package fr.rafoufoun.review.ui.create
 
 import androidx.compose.Composable
 import androidx.ui.foundation.Text

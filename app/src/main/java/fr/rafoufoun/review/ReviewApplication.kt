@@ -1,7 +1,7 @@
 package fr.rafoufoun.review
 
 import android.app.Application
-import fr.rafoufoun.review.provider.ReviewSource
+import fr.rafoufoun.review.data.ReviewSource
 
 class ReviewApplication : Application() {
 

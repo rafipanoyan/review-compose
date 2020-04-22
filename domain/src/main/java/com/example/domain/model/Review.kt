@@ -1,8 +1,8 @@
 package com.example.domain.model
 
-inline class ReviewName(val value: String)
+data class ReviewName(val value: String)
 
-inline class SectionLabel(val value: String)
+data class SectionLabel(val value: String)
 
 data class Mark(val value: Int, val outOf: Int)
 
@@ -15,3 +15,5 @@ data class Section(
     val label: SectionLabel,
     val mark: Mark
 )
+
+fun List<Int>.findCommonBase() = reduce { acc, value -> acc * value }

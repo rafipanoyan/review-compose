@@ -9,7 +9,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.ui.core.setContent
 import androidx.ui.material.MaterialTheme
 import androidx.ui.tooling.preview.Preview
-import fr.rafoufoun.review.home.ReviewsViewModel
+import fr.rafoufoun.review.ui.ReviewApp
+import fr.rafoufoun.review.ui.home.ReviewsViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 @ExperimentalCoroutinesApi
