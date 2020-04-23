@@ -3,13 +3,10 @@ package fr.rafoufoun.review.ui.home
 import androidx.compose.Composable
 import androidx.compose.remember
 import androidx.ui.core.Modifier
-import androidx.ui.core.tag
 import androidx.ui.foundation.Box
 import androidx.ui.foundation.ContentGravity
 import androidx.ui.foundation.Icon
 import androidx.ui.foundation.Text
-import androidx.ui.layout.ConstraintLayout
-import androidx.ui.layout.ConstraintSet
 import androidx.ui.layout.fillMaxSize
 import androidx.ui.layout.padding
 import androidx.ui.livedata.observeAsState
@@ -36,6 +33,16 @@ fun HomeScreen(scaffoldState: ScaffoldState = remember { ScaffoldState() }) {
                 title = { Text(text = "Review") }
             )
         },
+        floatingActionButton = {
+            if (!reviewsState.value.isNullOrEmpty()) {
+                FloatingActionButton(
+                    onClick = { pushScreen(Screen.NewReview) },
+                    modifier = Modifier.padding(16.dp)
+                ) {
+                    Icon(vectorResource(id = R.drawable.ic_add_24))
+                }
+            }
+        },
         bodyContent = { modifier ->
             val reviewList = reviewsState.value
             if (reviewList.isNullOrEmpty()) {
@@ -49,31 +56,7 @@ fun HomeScreen(scaffoldState: ScaffoldState = remember { ScaffoldState() }) {
 
 @Composable
 fun ReviewsContent(reviews: List<ReviewItemModel>) {
-    ConstraintLayout(constraintSet = ConstraintSet {
-        tag("list").apply {
-            top constrainTo parent.top
-            bottom constrainTo parent.bottom
-            left constrainTo parent.left
-            right constrainTo parent.right
-        }
-
-        tag("fab").apply {
-            bottom constrainTo parent.bottom
-            right constrainTo parent.right
-        }
-
-    }) {
-        ReviewList(
-            reviews = reviews,
-            modifier = Modifier.tag("list")
-        )
-        FloatingActionButton(
-            onClick = { pushScreen(Screen.NewReview) },
-            modifier = Modifier.tag("fab").padding(16.dp)
-        ) {
-            Icon(vectorResource(id = R.drawable.ic_add_24))
-        }
-    }
+    ReviewList(reviews = reviews, modifier = Modifier.fillMaxSize())
 }
 
 @Composable
