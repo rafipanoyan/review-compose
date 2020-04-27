@@ -5,15 +5,24 @@ import androidx.ui.core.Modifier
 import androidx.ui.foundation.Icon
 import androidx.ui.foundation.Text
 import androidx.ui.layout.*
+import androidx.ui.livedata.observeAsState
 import androidx.ui.material.*
 import androidx.ui.res.vectorResource
 import androidx.ui.unit.dp
 import fr.rafoufoun.review.R
+import fr.rafoufoun.review.ReviewFormViewModelAmbient
+import fr.rafoufoun.review.backPress
 
 @Composable
 fun NewReviewScreen(scaffoldState: ScaffoldState = ScaffoldState()) {
-    val newReview = NewReviewModel.new()
+    val reviewFormVm = ReviewFormViewModelAmbient.current
+    val formState = reviewFormVm.formResult.observeAsState()
+    val formStateValue = formState.value
+    if (formStateValue == ReviewFormResult.Success) {
+        backPress()
+    }
 
+    val newReview = NewReviewModel.new()
     Scaffold(
         scaffoldState = scaffoldState,
         topAppBar = {
@@ -29,13 +38,19 @@ fun NewReviewScreen(scaffoldState: ScaffoldState = ScaffoldState()) {
                 }
             }
         },
-        bodyContent = { CreateReviewForm(newReview) }
+        bodyContent = { CreateReviewForm(newReview, formStateValue) }
     )
 }
 
 @Composable
-fun CreateReviewForm(newReview: NewReviewModel) {
+fun CreateReviewForm(newReview: NewReviewModel, formState: ReviewFormResult?) {
     Column(modifier = Modifier.fillMaxWidth().padding(16.dp)) {
+
+        if (formState == ReviewFormResult.DuplicateReviewError) {
+            Text(text = "DUPLICATE REVIEW")
+            Spacer(modifier = Modifier.height(16.dp))
+        }
+
         FilledTextField(
             value = newReview.name,
             onValueChange = {
