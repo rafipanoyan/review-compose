@@ -32,8 +32,7 @@ class MainActivity : AppCompatActivity() {
     private val reviewFormVm: ReviewFormViewModel by lazy {
         ViewModelProvider(
             this,
-            //ReviewFormViewModel.Factory(ReviewApplication.get().reviewSource.createReview)
-            ReviewFormViewModel.Factory({})
+            ReviewFormViewModel.Factory(ReviewApplication.get().reviewSource.createReview)
         )[ReviewFormViewModel::class.java]
     }
 

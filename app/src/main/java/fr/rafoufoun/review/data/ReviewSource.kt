@@ -2,9 +2,10 @@ package fr.rafoufoun.review.data
 
 import android.app.Application
 import com.example.domain.interactor.getReviews
+import com.example.domain.interactor.tryCreateReview
 import com.example.domain.model.Review
 import fr.rafoufoun.data.repo.getReviewsFromDatabase
-import kotlinx.coroutines.delay
+import fr.rafoufoun.data.repo.insertReviewIntoDatabase
 import kotlinx.coroutines.flow.Flow
 
 class ReviewSource private constructor(private val app: Application) {
@@ -13,17 +14,13 @@ class ReviewSource private constructor(private val app: Application) {
         getReviews { getReviewsFromDatabase(app) }
     }
 
-    val createReview: (Review) -> Unit = { review ->
-        /*tryCreateReview(review) { reviewToInsert ->
+    val createReview: suspend (Review) -> Unit = { review ->
+        tryCreateReview(review) { reviewToInsert ->
             insertReviewIntoDatabase(
                 app,
                 review = reviewToInsert
             )
-        }*/
-    }
-
-    val f = suspend {
-        delay(100)
+        }
     }
 
     companion object {

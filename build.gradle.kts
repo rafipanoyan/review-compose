@@ -6,7 +6,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath("com.android.tools.build:gradle:4.1.0-alpha06")
+        classpath("com.android.tools.build:gradle:4.1.0-alpha07")
         classpath(kotlin("gradle-plugin", version = kotlinVersion))
     }
 }
