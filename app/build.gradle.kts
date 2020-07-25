@@ -39,13 +39,13 @@ android {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "0.1.0-dev09"
+        kotlinCompilerExtensionVersion = "0.1.0-dev10"
     }
 }
 
 dependencies {
-    val uiVersion = "0.1.0-dev09"
-    val composeVersion = "0.1.0-dev09"
+    val uiVersion = "0.1.0-dev10"
+    val composeVersion = "0.1.0-dev10"
     val lifecycleVersion = "2.2.0"
     val navVersion = "2.3.0-alpha05"
 
@@ -54,8 +54,6 @@ dependencies {
 
     implementation(project(":domain"))
     implementation(project(":data"))
-
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.5")
 
     implementation("androidx.core:core-ktx:1.2.0")
     implementation("androidx.appcompat:appcompat:1.1.0")

@@ -13,3 +13,14 @@ fun SectionDB.toSection(): Section =
         SectionLabel(label),
         Mark(mark, outOf)
     )
+
+internal fun Review.toDB() =
+    ReviewDB(this.name.value)
+
+internal fun Section.toDB(reviewName: ReviewName) =
+    SectionDB(
+        reviewName = reviewName.value,
+        label = label.value,
+        mark = mark.value,
+        outOf = mark.outOf
+    )
