@@ -50,7 +50,7 @@ dependencies {
     val navVersion = "2.3.0-alpha05"
 
 
-    implementation(kotlin("stdlib", org.jetbrains.kotlin.config.KotlinCompilerVersion.VERSION))
+    implementation(kotlin("stdlib"))
 
     implementation(project(":domain"))
     implementation(project(":data"))
