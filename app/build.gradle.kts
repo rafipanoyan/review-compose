@@ -44,10 +44,10 @@ android {
 }
 
 dependencies {
-    val uiVersion = "0.1.0-dev10"
-    val composeVersion = "0.1.0-dev10"
+    val uiVersion = "1.0.0-alpha01"
+    val composeVersion = "0.1.0-dev14"
     val lifecycleVersion = "2.2.0"
-    val navVersion = "2.3.0-alpha05"
+    val navVersion = "2.3.0"
 
 
     implementation(kotlin("stdlib"))
@@ -55,9 +55,9 @@ dependencies {
     implementation(project(":domain"))
     implementation(project(":data"))
 
-    implementation("androidx.core:core-ktx:1.2.0")
-    implementation("androidx.appcompat:appcompat:1.1.0")
-    implementation("com.google.android.material:material:1.1.0")
+    implementation("androidx.core:core-ktx:1.3.1")
+    implementation("androidx.appcompat:appcompat:1.2.0")
+    implementation("com.google.android.material:material:1.2.0")
 
     // ViewModel
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVersion")
@@ -76,6 +76,6 @@ dependencies {
     implementation("androidx.compose:compose-runtime:$composeVersion")
 
     testImplementation("junit:junit:4.13")
-    androidTestImplementation("androidx.test.ext:junit:1.1.1")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.2.0")
+    androidTestImplementation("androidx.test.ext:junit:1.1.2")
+    androidTestImplementation("androidx.test.espresso:espresso-core:3.3.0")
 }
