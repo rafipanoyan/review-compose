@@ -1,6 +1,7 @@
 package fr.rafoufoun.review
 
-import androidx.compose.Model
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateOf
 import com.example.domain.model.ReviewName
 import java.util.*
 import java.util.concurrent.ConcurrentLinkedDeque
@@ -11,24 +12,23 @@ sealed class Screen {
     object NewReview : Screen()
 }
 
-@Model
 object ReviewStatus {
     var previousScreens: Deque<Screen> = ConcurrentLinkedDeque()
-    var currentScreen: Screen = Screen.Home
+    var currentScreen: MutableState<Screen> = mutableStateOf(Screen.Home)
 }
 
 fun pushScreen(newScreen: Screen) {
-    ReviewStatus.previousScreens.addFirst(ReviewStatus.currentScreen)
-    ReviewStatus.currentScreen = newScreen
+    ReviewStatus.previousScreens.addFirst(ReviewStatus.currentScreen.value)
+    ReviewStatus.currentScreen.value = newScreen
 }
 
 fun navigateTo(screen: Screen) {
     ReviewStatus.previousScreens.clear()
-    ReviewStatus.currentScreen = screen
+    ReviewStatus.currentScreen.value = screen
 }
 
 fun backPress(): Boolean =
     ReviewStatus.previousScreens.pollFirst()?.let { screen ->
-        ReviewStatus.currentScreen = screen
+        ReviewStatus.currentScreen.value = screen
         return@let true
     } ?: false

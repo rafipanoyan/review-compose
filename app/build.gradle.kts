@@ -39,13 +39,21 @@ android {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "0.1.0-dev10"
+        kotlinCompilerVersion = "1.4.0"
+        kotlinCompilerExtensionVersion = "1.0.0-alpha01"
+    }
+}
+
+tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile::class.java).configureEach {
+    kotlinOptions {
+        jvmTarget = "1.8"
+        freeCompilerArgs = freeCompilerArgs + "-Xallow-jvm-ir-dependencies"
+        freeCompilerArgs = freeCompilerArgs + "-Xskip-prerelease-check"
     }
 }
 
 dependencies {
     val uiVersion = "1.0.0-alpha01"
-    val composeVersion = "0.1.0-dev14"
     val lifecycleVersion = "2.2.0"
     val navVersion = "2.3.0"
 
@@ -68,12 +76,11 @@ dependencies {
     implementation("androidx.navigation:navigation-fragment-ktx:$navVersion")
     implementation("androidx.navigation:navigation-ui-ktx:$navVersion")
 
-    implementation("androidx.ui:ui-framework:$uiVersion")
-    implementation("androidx.ui:ui-layout:$uiVersion")
-    implementation("androidx.ui:ui-material:$uiVersion")
+    implementation("androidx.compose.foundation:foundation:$uiVersion")
+    implementation("androidx.compose.material:material:$uiVersion")
     implementation("androidx.ui:ui-tooling:$uiVersion")
-    implementation("androidx.ui:ui-livedata:$uiVersion")
-    implementation("androidx.compose:compose-runtime:$composeVersion")
+    implementation("androidx.compose.runtime:runtime:$uiVersion")
+    implementation("androidx.compose.runtime:runtime-livedata:$uiVersion")
 
     testImplementation("junit:junit:4.13")
     androidTestImplementation("androidx.test.ext:junit:1.1.2")

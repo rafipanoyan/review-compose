@@ -1,18 +1,20 @@
 package fr.rafoufoun.review.ui.home
 
-import androidx.compose.Composable
-import androidx.compose.remember
-import androidx.ui.core.Modifier
-import androidx.ui.foundation.Box
-import androidx.ui.foundation.ContentGravity
-import androidx.ui.foundation.Icon
-import androidx.ui.foundation.Text
-import androidx.ui.layout.fillMaxSize
-import androidx.ui.layout.padding
-import androidx.ui.livedata.observeAsState
-import androidx.ui.material.*
-import androidx.ui.res.vectorResource
-import androidx.ui.unit.dp
+import androidx.compose.foundation.Box
+import androidx.compose.foundation.ContentGravity
+import androidx.compose.foundation.Icon
+import androidx.compose.foundation.Text
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material.CircularProgressIndicator
+import androidx.compose.material.FloatingActionButton
+import androidx.compose.material.Scaffold
+import androidx.compose.material.TopAppBar
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.vectorResource
+import androidx.compose.ui.unit.dp
 import fr.rafoufoun.review.R
 import fr.rafoufoun.review.ReviewsViewModelAmbient
 import fr.rafoufoun.review.Screen
@@ -22,13 +24,12 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 @ExperimentalCoroutinesApi
 @Composable
-fun HomeScreen(scaffoldState: ScaffoldState = remember { ScaffoldState() }) {
+fun HomeScreen() {
     val reviewsLiveData = ReviewsViewModelAmbient.current.reviews
     val reviewsState = reviewsLiveData.observeAsState()
 
     Scaffold(
-        scaffoldState = scaffoldState,
-        topAppBar = {
+        topBar = {
             TopAppBar(
                 title = { Text(text = "Review") }
             )
@@ -43,7 +44,7 @@ fun HomeScreen(scaffoldState: ScaffoldState = remember { ScaffoldState() }) {
                 }
             }
         },
-        bodyContent = { modifier ->
+        bodyContent = { _ ->
             val reviewList = reviewsState.value
             if (reviewList.isNullOrEmpty()) {
                 LoadingReviews()

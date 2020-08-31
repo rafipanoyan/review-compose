@@ -1,13 +1,14 @@
 package fr.rafoufoun.review.ui.create
 
-import androidx.compose.Model
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import com.example.domain.model.*
 
-@Model
-class NewReviewModel private constructor(var name: String, val sections: List<NewSectionModel>) {
+class NewReviewModel private constructor(name: String, val sections: List<NewSectionModel>) {
 
-    var isValid: Boolean = false
-        private set
+    var name by mutableStateOf(name)
+    var isValid by mutableStateOf(false)
 
     fun validate() {
         isValid =
@@ -22,12 +23,13 @@ class NewReviewModel private constructor(var name: String, val sections: List<Ne
     }
 }
 
-@Model
 class NewSectionModel(
     val label: String,
-    var mark: Int,
+    mark: Int,
     val outOf: Int
-)
+) {
+    var mark by mutableStateOf(mark)
+}
 
 fun newSections() = listOf(
     NewSectionModel("Story", 0, 10),

@@ -2,12 +2,12 @@ package fr.rafoufoun.review
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.compose.Composable
-import androidx.compose.Providers
-import androidx.compose.ambientOf
+import androidx.compose.material.MaterialTheme
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.Providers
+import androidx.compose.runtime.ambientOf
+import androidx.compose.ui.platform.setContent
 import androidx.lifecycle.ViewModelProvider
-import androidx.ui.core.setContent
-import androidx.ui.material.MaterialTheme
 import androidx.ui.tooling.preview.Preview
 import fr.rafoufoun.review.ui.ReviewApp
 import fr.rafoufoun.review.ui.create.ReviewFormViewModel

@@ -1,20 +1,21 @@
 package fr.rafoufoun.review.ui.create
 
-import androidx.compose.Composable
-import androidx.ui.core.Modifier
-import androidx.ui.foundation.Icon
-import androidx.ui.foundation.Text
-import androidx.ui.layout.*
-import androidx.ui.livedata.observeAsState
-import androidx.ui.material.*
-import androidx.ui.res.vectorResource
-import androidx.ui.unit.dp
+import androidx.compose.foundation.Icon
+import androidx.compose.foundation.Text
+import androidx.compose.foundation.layout.*
+import androidx.compose.material.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.runtime.remember
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.vectorResource
+import androidx.compose.ui.unit.dp
 import fr.rafoufoun.review.R
 import fr.rafoufoun.review.ReviewFormViewModelAmbient
 import fr.rafoufoun.review.backPress
 
 @Composable
-fun NewReviewScreen(scaffoldState: ScaffoldState = ScaffoldState()) {
+fun NewReviewScreen() {
     val reviewFormVm = ReviewFormViewModelAmbient.current
     val formState = reviewFormVm.formResult.observeAsState()
     val formStateValue = formState.value
@@ -22,10 +23,9 @@ fun NewReviewScreen(scaffoldState: ScaffoldState = ScaffoldState()) {
         backPress()
     }
 
-    val newReview = NewReviewModel.new()
+    val newReview = remember { NewReviewModel.new() }
     Scaffold(
-        scaffoldState = scaffoldState,
-        topAppBar = {
+        topBar = {
             TopAppBar(title = { Text(text = "New Review") })
         },
         floatingActionButton = {
@@ -51,7 +51,7 @@ fun CreateReviewForm(newReview: NewReviewModel, formState: ReviewFormResult?) {
             Spacer(modifier = Modifier.height(16.dp))
         }
 
-        FilledTextField(
+        OutlinedTextField(
             value = newReview.name,
             onValueChange = {
                 newReview.name = it
