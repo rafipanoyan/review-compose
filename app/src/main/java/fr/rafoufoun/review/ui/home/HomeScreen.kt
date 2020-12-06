@@ -11,30 +11,31 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.viewModel
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.navigate
 import fr.rafoufoun.review.R
 import fr.rafoufoun.review.ReviewApplication
 import fr.rafoufoun.review.Screen
 import fr.rafoufoun.review.model.ReviewItemModel
-import fr.rafoufoun.review.pushScreen
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
-@ExperimentalCoroutinesApi
 @Composable
-fun HomeScreen() {
+fun HomeScreen(navController: NavHostController, scaffoldState: ScaffoldState) {
     val reviewsVm =
         viewModel<ReviewsViewModel>(factory = ReviewsViewModel.Factory(ReviewApplication.get().reviewSource.allReviews))
-    val reviewsState = reviewsVm.reviews.observeAsState()
+    val reviews = reviewsVm.reviews.observeAsState().value
 
     Scaffold(
+        scaffoldState = scaffoldState,
         topBar = {
             TopAppBar(
                 title = { Text(text = "Review") }
             )
         },
         floatingActionButton = {
-            if (!reviewsState.value.isNullOrEmpty()) {
+            if (!reviews.isNullOrEmpty()) {
                 FloatingActionButton(
-                    onClick = { pushScreen(Screen.NewReview) },
+                    onClick = { navController.navigate(Screen.NewReview.route) },
                     modifier = Modifier.padding(16.dp)
                 ) {
                     Icon(vectorResource(id = R.drawable.ic_add_24))
@@ -42,11 +43,10 @@ fun HomeScreen() {
             }
         },
         bodyContent = {
-            val reviewList = reviewsState.value
-            if (reviewList.isNullOrEmpty()) {
+            if (reviews.isNullOrEmpty()) {
                 LoadingReviews()
             } else {
-                ReviewsContent(reviews = reviewList)
+                ReviewsContent(reviews)
             }
         }
     )

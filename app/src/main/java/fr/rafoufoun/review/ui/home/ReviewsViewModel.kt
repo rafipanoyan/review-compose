@@ -4,20 +4,13 @@ import androidx.lifecycle.*
 import com.example.domain.model.Review
 import fr.rafoufoun.review.model.ReviewItemModel
 import fr.rafoufoun.review.model.average
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.onStart
 
 private const val GENERAL_OUT_OF = 5
 
-@ExperimentalCoroutinesApi
 class ReviewsViewModel(allReviewsSource: () -> Flow<List<Review>>) : ViewModel() {
 
     val reviews: LiveData<List<ReviewItemModel>> = allReviewsSource()
-        .onStart {
-            delay(2000)
-        }
         .asLiveData()
         .map { reviews ->
             reviews.map {

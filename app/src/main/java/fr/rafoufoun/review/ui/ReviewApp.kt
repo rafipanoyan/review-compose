@@ -1,16 +1,15 @@
 package fr.rafoufoun.review.ui
 
-import androidx.compose.animation.Crossfade
 import androidx.compose.material.MaterialTheme
-import androidx.compose.material.TopAppBar
+import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
-import fr.rafoufoun.review.ReviewStatus
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
 import fr.rafoufoun.review.Screen
 import fr.rafoufoun.review.ui.create.NewReviewScreen
 import fr.rafoufoun.review.ui.home.HomeScreen
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 
-@ExperimentalCoroutinesApi
 @Composable
 fun ReviewApp() {
     MaterialTheme {
@@ -18,21 +17,17 @@ fun ReviewApp() {
     }
 }
 
-@ExperimentalCoroutinesApi
 @Composable
 fun AppContent() {
-    Crossfade(current = ReviewStatus.currentScreen) { screen ->
-        when (screen.value) {
-            Screen.Home -> HomeScreen()
-            is Screen.ReviewDetail -> TODO()
-            Screen.NewReview -> NewReviewScreen()
+    val navController = rememberNavController()
+    val scaffoldState = rememberScaffoldState()
+
+    NavHost(
+        navController = navController,
+        startDestination = Screen.Home.route,
+        builder = {
+            composable(Screen.Home.route) { HomeScreen(navController, scaffoldState) }
+            composable(Screen.NewReview.route) { NewReviewScreen(navController, scaffoldState) }
         }
-    }
-}
-
-@Composable
-fun AppBar() {
-    TopAppBar {
-
-    }
+    )
 }

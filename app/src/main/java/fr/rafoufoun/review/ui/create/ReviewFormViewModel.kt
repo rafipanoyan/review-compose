@@ -8,7 +8,6 @@ import kotlinx.coroutines.launch
 sealed class ReviewFormResult {
     object None : ReviewFormResult()
     object DuplicateReviewError : ReviewFormResult()
-    object Success : ReviewFormResult()
 }
 
 class ReviewFormViewModel(private val createReview: suspend (Review) -> Unit) : ViewModel() {
@@ -17,11 +16,11 @@ class ReviewFormViewModel(private val createReview: suspend (Review) -> Unit) : 
     val formResult: LiveData<ReviewFormResult>
         get() = _formResult
 
-    fun createReview(review: NewReviewModel) {
+    fun createReview(review: NewReviewModel, onSuccess: () -> Unit) {
         viewModelScope.launch {
             try {
                 createReview(review.toReview())
-                _formResult.value = ReviewFormResult.Success
+                onSuccess()
             } catch (e: DuplicateReviewException) {
                 _formResult.value = ReviewFormResult.DuplicateReviewError
             }

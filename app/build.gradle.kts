@@ -47,7 +47,7 @@ android {
 
 dependencies {
     val lifecycleVersion = "2.2.0"
-    val navVersion = "2.3.0"
+    val navVersion = "1.0.0-alpha03"
 
     implementation(kotlin("stdlib"))
 
@@ -64,8 +64,7 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:$lifecycleVersion")
 
     // Navigation
-    implementation("androidx.navigation:navigation-fragment-ktx:$navVersion")
-    implementation("androidx.navigation:navigation-ui-ktx:$navVersion")
+    implementation("androidx.navigation:navigation-compose:$navVersion")
 
     implementation("androidx.compose.ui:ui:$composeVersion")
     implementation("androidx.compose.material:material:$composeVersion")
