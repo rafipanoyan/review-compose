@@ -1,22 +1,18 @@
 package fr.rafoufoun.review.ui.home
 
-import androidx.compose.foundation.Box
-import androidx.compose.foundation.ContentGravity
-import androidx.compose.foundation.Icon
-import androidx.compose.foundation.Text
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.CircularProgressIndicator
-import androidx.compose.material.FloatingActionButton
-import androidx.compose.material.Scaffold
-import androidx.compose.material.TopAppBar
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.viewinterop.viewModel
 import fr.rafoufoun.review.R
-import fr.rafoufoun.review.ReviewsViewModelAmbient
+import fr.rafoufoun.review.ReviewApplication
 import fr.rafoufoun.review.Screen
 import fr.rafoufoun.review.model.ReviewItemModel
 import fr.rafoufoun.review.pushScreen
@@ -25,8 +21,9 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 @ExperimentalCoroutinesApi
 @Composable
 fun HomeScreen() {
-    val reviewsLiveData = ReviewsViewModelAmbient.current.reviews
-    val reviewsState = reviewsLiveData.observeAsState()
+    val reviewsVm =
+        viewModel<ReviewsViewModel>(factory = ReviewsViewModel.Factory(ReviewApplication.get().reviewSource.allReviews))
+    val reviewsState = reviewsVm.reviews.observeAsState()
 
     Scaffold(
         topBar = {
@@ -44,7 +41,7 @@ fun HomeScreen() {
                 }
             }
         },
-        bodyContent = { _ ->
+        bodyContent = {
             val reviewList = reviewsState.value
             if (reviewList.isNullOrEmpty()) {
                 LoadingReviews()
@@ -62,7 +59,7 @@ fun ReviewsContent(reviews: List<ReviewItemModel>) {
 
 @Composable
 fun LoadingReviews() {
-    Box(gravity = ContentGravity.Center, modifier = Modifier.fillMaxSize()) {
+    Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
         CircularProgressIndicator()
     }
 }

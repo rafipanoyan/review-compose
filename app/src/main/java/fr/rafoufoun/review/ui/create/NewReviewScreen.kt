@@ -1,7 +1,5 @@
 package fr.rafoufoun.review.ui.create
 
-import androidx.compose.foundation.Icon
-import androidx.compose.foundation.Text
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
@@ -10,13 +8,16 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.viewinterop.viewModel
 import fr.rafoufoun.review.R
-import fr.rafoufoun.review.ReviewFormViewModelAmbient
+import fr.rafoufoun.review.ReviewApplication
 import fr.rafoufoun.review.backPress
 
 @Composable
 fun NewReviewScreen() {
-    val reviewFormVm = ReviewFormViewModelAmbient.current
+    val reviewFormVm = viewModel<ReviewFormViewModel>(
+        factory = ReviewFormViewModel.Factory(ReviewApplication.get().reviewSource.createReview)
+    )
     val formState = reviewFormVm.formResult.observeAsState()
     val formStateValue = formState.value
     if (formStateValue == ReviewFormResult.Success) {
