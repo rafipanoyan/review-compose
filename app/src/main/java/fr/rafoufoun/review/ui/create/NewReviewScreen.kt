@@ -11,6 +11,7 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.viewModel
+import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import fr.rafoufoun.review.R
 import fr.rafoufoun.review.ReviewApplication
@@ -22,29 +23,56 @@ fun NewReviewScreen(navController: NavHostController, scaffoldState: ScaffoldSta
     )
     val formState = reviewFormVm.formResult.observeAsState().value
 
-    val newReview = remember { NewReviewModel.new() }
+    val newReview = remember { reviewFormVm.newReview }
+
     Scaffold(
+        scaffoldState = scaffoldState,
         topBar = {
-            TopAppBar(title = { Text(text = "New Review") })
+            NewReviewTopAppBar(navController)
         },
         floatingActionButton = {
             if (newReview.isValid) {
-                FloatingActionButton(
-                    onClick = {
-                        reviewFormVm.createReview(newReview) {
-                            navController.popBackStack()
-                        }
-                    },
-                    modifier = Modifier.padding(16.dp)
-                ) {
-                    Icon(vectorResource(id = R.drawable.ic_check_24))
-                }
+                NewReviewDoneFab(
+                    navController = navController,
+                    reviewFormVm = reviewFormVm,
+                    newReview = newReview
+                )
             }
-        },
-        bodyContent = {
-            CreateReviewForm(newReview, formState)
+        }
+    ) {
+        CreateReviewForm(newReview, formState)
+    }
+
+}
+
+@Composable
+fun NewReviewTopAppBar(navController: NavController) {
+    TopAppBar(
+        title = { Text(text = "New Review") },
+        navigationIcon = {
+            IconButton(onClick = { navController.popBackStack() }) {
+                Icon(vectorResource(id = R.drawable.ic_baseline_arrow_back_24))
+            }
         }
     )
+}
+
+@Composable
+fun NewReviewDoneFab(
+    navController: NavController,
+    reviewFormVm: ReviewFormViewModel,
+    newReview: NewReviewModel
+) {
+    FloatingActionButton(
+        onClick = {
+            reviewFormVm.createReview(newReview) {
+                navController.popBackStack()
+            }
+        },
+        modifier = Modifier.padding(16.dp)
+    ) {
+        Icon(vectorResource(id = R.drawable.ic_check_24))
+    }
 }
 
 @Composable

@@ -16,6 +16,8 @@ class ReviewFormViewModel(private val createReview: suspend (Review) -> Unit) : 
     val formResult: LiveData<ReviewFormResult>
         get() = _formResult
 
+    val newReview = NewReviewModel.new()
+
     fun createReview(review: NewReviewModel, onSuccess: () -> Unit) {
         viewModelScope.launch {
             try {
@@ -27,6 +29,7 @@ class ReviewFormViewModel(private val createReview: suspend (Review) -> Unit) : 
         }
     }
 
+    @Suppress("UNCHECKED_CAST")
     class Factory(private val createReview: suspend (Review) -> Unit) : ViewModelProvider.Factory {
 
         override fun <T : ViewModel?> create(modelClass: Class<T>): T =
