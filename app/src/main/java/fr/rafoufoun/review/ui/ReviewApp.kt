@@ -22,12 +22,16 @@ fun AppContent() {
     val navController = rememberNavController()
     val scaffoldState = rememberScaffoldState()
 
+    val doBack: () -> Unit = { navController.popBackStack() }
+
     NavHost(
         navController = navController,
         startDestination = Screen.Home.route,
         builder = {
             composable(Screen.Home.route) { HomeScreen(navController, scaffoldState) }
-            composable(Screen.NewReview.route) { NewReviewScreen(navController, scaffoldState) }
+            composable(Screen.NewReview.route) {
+                NewReviewScreen(scaffoldState, doBack)
+            }
         }
     )
 }

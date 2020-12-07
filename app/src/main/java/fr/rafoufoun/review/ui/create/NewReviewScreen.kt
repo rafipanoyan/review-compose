@@ -1,5 +1,6 @@
 package fr.rafoufoun.review.ui.create
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
@@ -9,15 +10,14 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.viewModel
-import androidx.navigation.NavController
-import androidx.navigation.NavHostController
 import fr.rafoufoun.review.R
 import fr.rafoufoun.review.ReviewApplication
 
 @Composable
-fun NewReviewScreen(navController: NavHostController, scaffoldState: ScaffoldState) {
+fun NewReviewScreen(scaffoldState: ScaffoldState, onBack: () -> Unit) {
     val reviewFormVm = viewModel<ReviewFormViewModel>(
         factory = ReviewFormViewModel.Factory(ReviewApplication.get().reviewSource.createReview)
     )
@@ -28,12 +28,12 @@ fun NewReviewScreen(navController: NavHostController, scaffoldState: ScaffoldSta
     Scaffold(
         scaffoldState = scaffoldState,
         topBar = {
-            NewReviewTopAppBar(navController)
+            NewReviewTopAppBar(onBack)
         },
         floatingActionButton = {
             if (newReview.isValid) {
                 NewReviewDoneFab(
-                    navController = navController,
+                    onBack = onBack,
                     reviewFormVm = reviewFormVm,
                     newReview = newReview
                 )
@@ -46,11 +46,11 @@ fun NewReviewScreen(navController: NavHostController, scaffoldState: ScaffoldSta
 }
 
 @Composable
-fun NewReviewTopAppBar(navController: NavController) {
+fun NewReviewTopAppBar(onBack: () -> Unit) {
     TopAppBar(
         title = { Text(text = "New Review") },
         navigationIcon = {
-            IconButton(onClick = { navController.popBackStack() }) {
+            IconButton(onClick = onBack) {
                 Icon(vectorResource(id = R.drawable.ic_baseline_arrow_back_24))
             }
         }
@@ -59,14 +59,14 @@ fun NewReviewTopAppBar(navController: NavController) {
 
 @Composable
 fun NewReviewDoneFab(
-    navController: NavController,
+    onBack: () -> Unit,
     reviewFormVm: ReviewFormViewModel,
     newReview: NewReviewModel
 ) {
     FloatingActionButton(
         onClick = {
             reviewFormVm.createReview(newReview) {
-                navController.popBackStack()
+                onBack()
             }
         },
         modifier = Modifier.padding(16.dp)
@@ -80,8 +80,7 @@ fun CreateReviewForm(newReview: NewReviewModel, formState: ReviewFormResult?) {
     Column(modifier = Modifier.fillMaxWidth().padding(16.dp)) {
 
         if (formState == ReviewFormResult.DuplicateReviewError) {
-            Text(text = "DUPLICATE REVIEW")
-            Spacer(modifier = Modifier.height(16.dp))
+            NewReviewDuplicateWarning()
         }
 
         NewReviewName(newReview = newReview)
@@ -94,6 +93,21 @@ fun CreateReviewForm(newReview: NewReviewModel, formState: ReviewFormResult?) {
                     newReview.validate()
                 }
             )
+        }
+    }
+}
+
+@Composable
+fun NewReviewDuplicateWarning() {
+    Surface {
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .background(fr.rafoufoun.review.error)
+                .padding(16.dp)
+        ) {
+            Text(text = "DUPLICATE REVIEW")
+            Spacer(modifier = Modifier.height(16.dp))
         }
     }
 }
@@ -138,4 +152,16 @@ fun NewReviewSection(
         )
         Spacer(modifier = Modifier.height(16.dp))
     }
+}
+
+@Composable
+@Preview
+fun NewReviewScreenPreview() {
+    NewReviewScreen(scaffoldState = rememberScaffoldState(), onBack = {})
+}
+
+@Composable
+@Preview
+fun NewReviewDuplicateWarningPreview() {
+    NewReviewDuplicateWarning()
 }
