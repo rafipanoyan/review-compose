@@ -5,11 +5,9 @@ buildscript {
         jcenter()
     }
 
-    val kotlinVersion = "1.4.20"
-
     dependencies {
         classpath("com.android.tools.build:gradle:7.0.0-alpha02")
-        classpath(kotlin("gradle-plugin", version = kotlinVersion))
+        classpath(kotlin("gradle-plugin", version = Kotlin.version))
     }
 }
 

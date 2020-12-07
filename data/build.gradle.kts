@@ -17,7 +17,6 @@ android {
 dependencies {
     val roomVersion = "2.2.5"
 
-    implementation(kotlin("stdlib"))
     implementation(project(":domain"))
 
     implementation("androidx.room:room-runtime:$roomVersion")

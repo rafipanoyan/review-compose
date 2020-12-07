@@ -3,8 +3,6 @@ plugins {
     id("kotlin-android")
 }
 
-val composeVersion = "1.0.0-alpha08"
-
 android {
     compileSdkVersion(30)
 
@@ -41,15 +39,13 @@ android {
     }
     composeOptions {
         kotlinCompilerVersion = Kotlin.version
-        kotlinCompilerExtensionVersion = composeVersion
+        kotlinCompilerExtensionVersion = Compose.version
     }
 }
 
 dependencies {
     val lifecycleVersion = "2.2.0"
     val navVersion = "1.0.0-alpha03"
-
-    implementation(kotlin("stdlib"))
 
     implementation(project(":domain"))
     implementation(project(":data"))
@@ -66,10 +62,10 @@ dependencies {
     // Navigation
     implementation("androidx.navigation:navigation-compose:$navVersion")
 
-    implementation("androidx.compose.ui:ui:$composeVersion")
-    implementation("androidx.compose.material:material:$composeVersion")
-    implementation("androidx.compose.ui:ui-tooling:$composeVersion")
-    implementation("androidx.compose.runtime:runtime-livedata:$composeVersion")
+    implementation("androidx.compose.ui:ui:${Compose.version}")
+    implementation("androidx.compose.material:material:${Compose.version}")
+    implementation("androidx.compose.ui:ui-tooling:${Compose.version}")
+    implementation("androidx.compose.runtime:runtime-livedata:${Compose.version}")
 
     testImplementation("junit:junit:4.13.1")
     androidTestImplementation("androidx.test.ext:junit:1.1.2")
