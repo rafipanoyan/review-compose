@@ -13,6 +13,9 @@ interface ReviewDao {
     @Query("SELECT * FROM review")
     fun getReviewsWithSections(): Flow<List<ReviewAndSections>>
 
+    @Query("SELECT * FROM review WHERE review.name == :reviewName")
+    fun getReview(reviewName: String): Flow<ReviewAndSections>
+
     @Insert
     suspend fun insertReviewWithSections(review: ReviewDB, sections: List<SectionDB>)
 

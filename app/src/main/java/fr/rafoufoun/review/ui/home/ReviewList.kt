@@ -6,8 +6,9 @@ import androidx.compose.ui.Modifier
 import fr.rafoufoun.review.model.ReviewItemModel
 
 @Composable
-fun ReviewList(reviews: List<ReviewItemModel>, modifier: Modifier = Modifier) {
+fun ReviewList(reviews: List<ReviewItemModel>, modifier: Modifier = Modifier,
+               onReviewClick: (reviewName: String) -> Unit) {
     LazyColumnFor(items = reviews, modifier = modifier) { review ->
-        ReviewItem(review)
+        ReviewItem(review, onReviewClick)
     }
 }

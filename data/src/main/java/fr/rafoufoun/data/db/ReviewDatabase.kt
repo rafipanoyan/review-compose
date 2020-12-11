@@ -5,6 +5,7 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
+import com.example.domain.model.ReviewName
 import fr.rafoufoun.data.model.ReviewDB
 import fr.rafoufoun.data.model.SectionDB
 
@@ -12,6 +13,8 @@ import fr.rafoufoun.data.model.SectionDB
 abstract class ReviewDatabase : RoomDatabase() {
 
     abstract fun reviewDao(): ReviewDao
+
+    fun getReview(reviewName: ReviewName) = reviewDao().getReview(reviewName.value)
 
     fun getReviews() = reviewDao().getReviewsWithSections()
 

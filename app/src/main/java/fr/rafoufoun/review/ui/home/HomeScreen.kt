@@ -1,12 +1,11 @@
 package fr.rafoufoun.review.ui.home
 
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.livedata.observeAsState
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
@@ -17,10 +16,14 @@ import fr.rafoufoun.review.R
 import fr.rafoufoun.review.ReviewApplication
 import fr.rafoufoun.review.Screen
 import fr.rafoufoun.review.model.ReviewItemModel
-import kotlinx.coroutines.ExperimentalCoroutinesApi
+import fr.rafoufoun.review.ui.common.LoadingContentFull
 
 @Composable
-fun HomeScreen(navController: NavHostController, scaffoldState: ScaffoldState) {
+fun HomeScreen(
+    navController: NavHostController,
+    scaffoldState: ScaffoldState,
+    onReviewClick: (reviewName: String) -> Unit
+) {
     val reviewsVm =
         viewModel<ReviewsViewModel>(factory = ReviewsViewModel.Factory(ReviewApplication.get().reviewSource.allReviews))
     val reviews = reviewsVm.reviews.observeAsState().value
@@ -44,22 +47,18 @@ fun HomeScreen(navController: NavHostController, scaffoldState: ScaffoldState) {
         },
         bodyContent = {
             if (reviews.isNullOrEmpty()) {
-                LoadingReviews()
+                LoadingContentFull()
             } else {
-                ReviewsContent(reviews)
+                ReviewsContent(reviews, onReviewClick)
             }
         }
     )
 }
 
 @Composable
-fun ReviewsContent(reviews: List<ReviewItemModel>) {
-    ReviewList(reviews = reviews, modifier = Modifier.fillMaxSize())
-}
-
-@Composable
-fun LoadingReviews() {
-    Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
-        CircularProgressIndicator()
-    }
+fun ReviewsContent(
+    reviews: List<ReviewItemModel>,
+    onReviewClick: (reviewName: String) -> Unit
+) {
+    ReviewList(reviews = reviews, modifier = Modifier.fillMaxSize(), onReviewClick)
 }
