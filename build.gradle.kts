@@ -2,11 +2,11 @@
 buildscript {
     repositories {
         google()
-        jcenter()
+        mavenCentral()
     }
 
     dependencies {
-        classpath("com.android.tools.build:gradle:7.0.0-alpha02")
+        classpath("com.android.tools.build:gradle:7.0.0-alpha09")
         classpath(kotlin("gradle-plugin", version = Kotlin.version))
     }
 }
@@ -14,7 +14,7 @@ buildscript {
 allprojects {
     repositories {
         google()
-        jcenter()
+        mavenCentral()
     }
 }
 
