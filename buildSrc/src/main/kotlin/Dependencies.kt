@@ -1,5 +1,5 @@
 object Kotlin {
-    const val version = "1.4.20"
+    const val version = "1.4.31"
 }
 
 object Coroutines {
@@ -7,5 +7,5 @@ object Coroutines {
 }
 
 object Compose {
-    const val version = "1.0.0-alpha08"
+    const val version = "1.0.0-beta02"
 }

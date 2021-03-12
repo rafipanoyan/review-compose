@@ -37,22 +37,18 @@ android {
     buildFeatures {
         compose = true
     }
-    composeOptions {
-        kotlinCompilerVersion = Kotlin.version
-        kotlinCompilerExtensionVersion = Compose.version
-    }
 }
 
 dependencies {
     val lifecycleVersion = "2.2.0"
-    val navVersion = "1.0.0-alpha03"
+    val navVersion = "1.0.0-alpha09"
 
     implementation(project(":domain"))
     implementation(project(":data"))
 
     implementation("androidx.core:core-ktx:1.3.2")
     implementation("androidx.appcompat:appcompat:1.2.0")
-    implementation("com.google.android.material:material:1.2.1")
+    implementation("com.google.android.material:material:1.3.0")
 
     // ViewModel
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVersion")
@@ -67,7 +63,7 @@ dependencies {
     implementation("androidx.compose.ui:ui-tooling:${Compose.version}")
     implementation("androidx.compose.runtime:runtime-livedata:${Compose.version}")
 
-    testImplementation("junit:junit:4.13.1")
+    testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.2")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.3.0")
 }
