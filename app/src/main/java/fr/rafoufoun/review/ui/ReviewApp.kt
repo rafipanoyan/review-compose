@@ -1,5 +1,6 @@
 package fr.rafoufoun.review.ui
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
@@ -13,6 +14,7 @@ import fr.rafoufoun.review.ui.create.NewReviewScreen
 import fr.rafoufoun.review.ui.detail.ReviewDetailScreen
 import fr.rafoufoun.review.ui.home.HomeScreen
 
+@ExperimentalFoundationApi
 @Composable
 fun ReviewApp() {
     MaterialTheme {
@@ -20,6 +22,7 @@ fun ReviewApp() {
     }
 }
 
+@ExperimentalFoundationApi
 @Composable
 fun AppContent() {
     val navController = rememberNavController()

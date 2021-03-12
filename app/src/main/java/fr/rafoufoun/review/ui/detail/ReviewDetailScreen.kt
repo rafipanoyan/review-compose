@@ -4,7 +4,7 @@ import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.livedata.observeAsState
-import androidx.compose.ui.viewinterop.viewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.domain.model.ReviewName
 import fr.rafoufoun.review.BuildConfig
 import fr.rafoufoun.review.ReviewApplication

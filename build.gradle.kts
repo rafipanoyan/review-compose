@@ -15,6 +15,8 @@ allprojects {
     repositories {
         google()
         mavenCentral()
+        // TODO remove this when https://github.com/Kotlin/kotlinx.collections.immutable/issues/96 is fixed
+        jcenter()
     }
 }
 

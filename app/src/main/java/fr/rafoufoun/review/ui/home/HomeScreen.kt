@@ -1,15 +1,15 @@
 package fr.rafoufoun.review.ui.home
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.vectorResource
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.viewinterop.viewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.navigate
 import fr.rafoufoun.review.R
@@ -18,6 +18,7 @@ import fr.rafoufoun.review.Screen
 import fr.rafoufoun.review.model.ReviewItemModel
 import fr.rafoufoun.review.ui.common.LoadingContentFull
 
+@ExperimentalFoundationApi
 @Composable
 fun HomeScreen(
     navController: NavHostController,
@@ -41,20 +42,22 @@ fun HomeScreen(
                     onClick = { navController.navigate(Screen.NewReview.route) },
                     modifier = Modifier.padding(16.dp)
                 ) {
-                    Icon(vectorResource(id = R.drawable.ic_add_24))
+                    Icon(
+                        painter = painterResource(id = R.drawable.ic_add_24),
+                        contentDescription = null
+                    )
                 }
             }
-        },
-        bodyContent = {
-            if (reviews.isNullOrEmpty()) {
-                LoadingContentFull()
-            } else {
-                ReviewsContent(reviews, onReviewClick)
-            }
+        }) {
+        if (reviews.isNullOrEmpty()) {
+            LoadingContentFull()
+        } else {
+            ReviewsContent(reviews, onReviewClick)
         }
-    )
+    }
 }
 
+@ExperimentalFoundationApi
 @Composable
 fun ReviewsContent(
     reviews: List<ReviewItemModel>,

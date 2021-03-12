@@ -2,17 +2,18 @@ package fr.rafoufoun.review.ui.create
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.vectorResource
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.viewinterop.viewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
 import fr.rafoufoun.review.R
 import fr.rafoufoun.review.ReviewApplication
 
@@ -51,7 +52,10 @@ fun NewReviewTopAppBar(onBack: () -> Unit) {
         title = { Text(text = "New Review") },
         navigationIcon = {
             IconButton(onClick = onBack) {
-                Icon(vectorResource(id = R.drawable.ic_baseline_arrow_back_24))
+                Icon(
+                    painter = painterResource(id = R.drawable.ic_baseline_arrow_back_24),
+                    contentDescription = null
+                )
             }
         }
     )
@@ -71,13 +75,20 @@ fun NewReviewDoneFab(
         },
         modifier = Modifier.padding(16.dp)
     ) {
-        Icon(vectorResource(id = R.drawable.ic_check_24))
+        Icon(
+            painter = painterResource(id = R.drawable.ic_check_24),
+            contentDescription = null
+        )
     }
 }
 
 @Composable
 fun CreateReviewForm(newReview: NewReviewModel, formState: ReviewFormResult?) {
-    Column(modifier = Modifier.fillMaxWidth().padding(16.dp)) {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(16.dp)
+    ) {
 
         if (formState == ReviewFormResult.DuplicateReviewError) {
             NewReviewDuplicateWarning()
@@ -116,20 +127,18 @@ fun NewReviewDuplicateWarning() {
 fun NewReviewName(newReview: NewReviewModel) {
     OutlinedTextField(
         value = newReview.name,
-        onValueChange = {
-            newReview.name = it
+        onValueChange = { newValue ->
+            newReview.name = newValue
             newReview.validate()
         },
-        label = { Text(text = "name") },
-        modifier = Modifier.fillMaxWidth(),
-        onImeActionPerformed = { action, softwareController ->
-            if (action == ImeAction.Done) {
-                softwareController?.hideSoftwareKeyboard()
-            }
+        label = {
+            Text(text = "name")
         },
-        keyboardOptions = KeyboardOptions(
-            imeAction = ImeAction.Done
-        ),
+        modifier = Modifier.fillMaxWidth(),
+        keyboardActions = KeyboardActions(onDone = {
+            // hide keyboard
+        }),
+        keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
         singleLine = true
     )
 }

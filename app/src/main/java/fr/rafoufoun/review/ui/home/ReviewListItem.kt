@@ -1,7 +1,9 @@
 package fr.rafoufoun.review.ui.home
 
 import android.util.Log
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -18,6 +20,7 @@ import com.example.domain.model.ReviewName
 import fr.rafoufoun.review.model.Average
 import fr.rafoufoun.review.model.ReviewItemModel
 
+@ExperimentalFoundationApi
 @Composable
 fun ReviewItem(
     review: ReviewItemModel,
@@ -28,7 +31,8 @@ fun ReviewItem(
     Surface(
         modifier = Modifier
             .fillMaxWidth()
-            .clickable(
+            .combinedClickable(
+                true,
                 onClick = {
                     onReviewClick(review.name.value)
                 },
@@ -40,7 +44,9 @@ fun ReviewItem(
         Box {
             Text(
                 text = review.name.value,
-                modifier = Modifier.padding(16.dp).then(Modifier.fillMaxWidth())
+                modifier = Modifier
+                    .padding(16.dp)
+                    .then(Modifier.fillMaxWidth())
             )
 
             if (popupOpened.value) {
@@ -54,6 +60,7 @@ fun ReviewItem(
     }
 }
 
+@ExperimentalFoundationApi
 @Preview
 @Composable
 fun ReviewItemPreview() {
